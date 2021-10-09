@@ -1,13 +1,13 @@
-package org.wit.music.console.main
+package org.wit.song.console.main
 
 import mu.KotlinLogging
+import org.wit.song.console.models.SongModel
 
 private val logger = KotlinLogging.logger {}
 
-var title = ""
-var artist = ""
+var song = SongModel()
 
-fun main(args: Array<String>){
+fun main(args: Array<String>) {
     logger.info { "Launching Music Console App" }
     println("Music Kotlin App Version 1.0")
 
@@ -28,17 +28,16 @@ fun main(args: Array<String>){
 }
 
 fun menu() : Int {
-
     var option : Int
-    var input: String? = null
+    var input: String?
 
-    println("Main Menu")
+    println("MAIN MENU")
     println(" 1. Add Song")
     println(" 2. Update Song")
     println(" 3. List All Songs")
     println("-1. Exit")
     println()
-    print("Enter an integer : ")
+    print("Enter Option : ")
     input = readLine()!!
     option = if (input.toIntOrNull() != null && !input.isEmpty())
         input.toInt()
@@ -47,28 +46,27 @@ fun menu() : Int {
     return option
 }
 
-
 fun addSong(){
-
     println("Add Song")
     println()
     print("Enter a Title : ")
-    title = readLine()!!
+    song.title = readLine()!!
     print("Enter an Artist : ")
-    artist = readLine()!!
-    println("You entered [ $title ] for title and [ $artist ] for artist.")
+    song.artist = readLine()!!
+    println("You entered [ " + song.title + " ] for title " +
+            "and [ " + song.artist + " ] for artist")
 }
 
 fun updateSong() {
     println("Update Song")
     println()
-    print("Enter a new Title for [ $title ] : ")
-    title = readLine()!!
-    print("Enter a new Artist for [ $artist ] : ")
-    artist = readLine()!!
-    println("You updated [ $title ] for title and [ $artist ] for artist")
+    print("Enter a new Title for [ " + song.title + " ] : ")
+    song.title = readLine()!!
+    print("Enter a new Artist for [ " + song.artist + " ] : ")
+    song.artist = readLine()!!
+    println("You updated [ " + song.title + " ] for title " +
+            "and [ " + song.artist + " ] for artist")
 }
-
 
 fun listSongs() {
     println("You Chose List All Songs")
