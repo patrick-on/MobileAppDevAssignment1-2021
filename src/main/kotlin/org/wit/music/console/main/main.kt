@@ -1,8 +1,11 @@
-package org.wit.music
+package org.wit.music.console.main
 
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
+
+var title = ""
+var artist = ""
 
 fun main(args: Array<String>){
     logger.info { "Launching Music Console App" }
@@ -13,7 +16,9 @@ fun main(args: Array<String>){
     do {
         input = menu()
         when(input) {
-            1 -> println("You Chose Add Song")
+            1 -> addSong()
+            2 -> updateSong()
+            3 -> listSongs()
             -1 -> println("Exiting App")
             else -> println("Invalid Option")
         }
@@ -40,4 +45,31 @@ fun menu() : Int {
     else
         -9
     return option
+}
+
+
+fun addSong(){
+
+    println("Add Song")
+    println()
+    print("Enter a Title : ")
+    title = readLine()!!
+    print("Enter an Artist : ")
+    artist = readLine()!!
+    println("You entered [ $title ] for title and [ $artist ] for artist.")
+}
+
+fun updateSong() {
+    println("Update Song")
+    println()
+    print("Enter a new Title for [ $title ] : ")
+    title = readLine()!!
+    print("Enter a new Artist for [ $artist ] : ")
+    artist = readLine()!!
+    println("You updated [ $title ] for title and [ $artist ] for artist")
+}
+
+
+fun listSongs() {
+    println("You Chose List All Songs")
 }
