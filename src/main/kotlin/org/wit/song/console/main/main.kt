@@ -20,6 +20,8 @@ fun main(args: Array<String>) {
             1 -> addSong()
             2 -> updateSong()
             3 -> listSongs()
+            4 -> searchSong()
+            -99 -> dummyData()
             -1 -> println("Exiting App")
             else -> println("Invalid Option")
         }
@@ -36,6 +38,7 @@ fun menu() : Int {
     println(" 1. Add Song")
     println(" 2. Update Song")
     println(" 3. List All Songs")
+    println(" 4. Search Songs")
     println("-1. Exit")
     println()
     print("Enter Option : ")
@@ -48,16 +51,18 @@ fun menu() : Int {
 }
 
 fun addSong(){
+    var aSong = SongModel()
     println("Add Song")
     println()
     print("Enter a Title : ")
-    song.title = readLine()!!
+    aSong.title = readLine()!!
     print("Enter an Artist : ")
-    song.artist = readLine()!!
+    aSong.artist = readLine()!!
 
-    if (song.title.isNotEmpty() && song.artist.isNotEmpty()) {
-        songs.add(song.copy())
-        logger.info("Song Added : [ $song ]")
+    if (aSong.title.isNotEmpty() && aSong.artist.isNotEmpty()) {
+        aSong.id = songs.size.toLong()
+        songs.add(aSong.copy())
+        logger.info("Song Added : [ $aSong ]")
     }
     else
         logger.info("Song Not Added")
@@ -66,16 +71,61 @@ fun addSong(){
 fun updateSong() {
     println("Update Song")
     println()
-    print("Enter a new Title for [ " + song.title + " ] : ")
-    song.title = readLine()!!
-    print("Enter a new Artist for [ " + song.artist + " ] : ")
-    song.artist = readLine()!!
-    println("You updated [ " + song.title + " ] for title " +
-            "and [ " + song.artist + " ] for artist")
+    listSongs()
+    var searchId = getId()
+    val aSong = search(searchId)
+
+    if(aSong != null) {
+        print("Enter a new Title for [ " + aSong.title + " ] : ")
+        aSong.title = readLine()!!
+        print("Enter a new Artist for [ " + aSong.artist + " ] : ")
+        aSong.artist = readLine()!!
+        println(
+                "You updated [ " + aSong.title + " ] for title " +
+                        "and [ " + aSong.artist + " ] for artist"
+        )
+    }
+    else
+        println("Song Not Updated...")
 }
 
 fun listSongs() {
     println("List All Songs")
     println()
     songs.forEach { logger.info("${it}") }
+    println()
+}
+
+fun searchSong() {
+
+    var searchId = getId()
+    val aSong = search(searchId)
+
+    if(aSong != null)
+        println("Song Details [ $aSong ]")
+    else
+        println("Song Not Found...")
+}
+
+fun getId() : Long {
+    var strId : String? // String to hold user input
+    var searchId : Long // Long to hold converted id
+    print("Enter id to Search/Update : ")
+    strId = readLine()!!
+    searchId = if (strId.toLongOrNull() != null && !strId.isEmpty())
+        strId.toLong()
+    else
+        -9
+    return searchId
+}
+
+fun search(id: Long) : SongModel? {
+    var foundSong: SongModel? = songs.find { s -> s.id == id }
+    return foundSong
+}
+
+fun dummyData() {
+    songs.add(SongModel(1, "21", "Polo G"))
+    songs.add(SongModel(2, "Martin & Gina", "Polo G"))
+    songs.add(SongModel(3, "2055", "Sleepy Hallows"))
 }
