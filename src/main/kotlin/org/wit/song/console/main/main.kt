@@ -6,6 +6,7 @@ import org.wit.song.console.models.SongModel
 private val logger = KotlinLogging.logger {}
 
 var song = SongModel()
+val songs = ArrayList<SongModel>()
 
 fun main(args: Array<String>) {
     logger.info { "Launching Music Console App" }
@@ -53,8 +54,13 @@ fun addSong(){
     song.title = readLine()!!
     print("Enter an Artist : ")
     song.artist = readLine()!!
-    println("You entered [ " + song.title + " ] for title " +
-            "and [ " + song.artist + " ] for artist")
+
+    if (song.title.isNotEmpty() && song.artist.isNotEmpty()) {
+        songs.add(song.copy())
+        logger.info("Song Added : [ $song ]")
+    }
+    else
+        logger.info("Song Not Added")
 }
 
 fun updateSong() {
@@ -69,5 +75,7 @@ fun updateSong() {
 }
 
 fun listSongs() {
-    println("You Chose List All Songs")
+    println("List All Songs")
+    println()
+    songs.forEach { logger.info("${it}") }
 }
