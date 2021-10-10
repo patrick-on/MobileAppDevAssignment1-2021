@@ -74,16 +74,25 @@ fun updateSong() {
     listSongs()
     var searchId = getId()
     val aSong = search(searchId)
+    var tempTitle : String?
+    var tempArtist : String?
 
     if(aSong != null) {
         print("Enter a new Title for [ " + aSong.title + " ] : ")
-        aSong.title = readLine()!!
+        tempTitle = readLine()!!
         print("Enter a new Artist for [ " + aSong.artist + " ] : ")
-        aSong.artist = readLine()!!
-        println(
-                "You updated [ " + aSong.title + " ] for title " +
-                        "and [ " + aSong.artist + " ] for artist"
-        )
+        tempArtist = readLine()!!
+
+        if (!tempTitle.isNullOrEmpty() && !tempArtist.isNullOrEmpty()) {
+            aSong.title = tempTitle
+            aSong.artist = tempArtist
+            println(
+                    "You updated [ " + aSong.title + " ] for title " +
+                            "and [ " + aSong.artist + " ] for artist")
+            logger.info("Song Updated : [ $aSong ]")
+        }
+        else
+            logger.info("Song Not Updated")
     }
     else
         println("Song Not Updated...")
