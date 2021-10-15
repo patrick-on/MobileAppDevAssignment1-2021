@@ -1,5 +1,6 @@
 package org.wit.song.console.views
 
+import org.wit.song.console.models.SongJSONStore
 import org.wit.song.console.models.SongMemStore
 import org.wit.song.console.models.SongModel
 
@@ -26,7 +27,7 @@ class SongView {
         return option
     }
 
-    fun listSongs(songs : SongMemStore) {
+    fun listSongs(songs : SongJSONStore) {
         println("List All Songs")
         println()
         songs.logAll()

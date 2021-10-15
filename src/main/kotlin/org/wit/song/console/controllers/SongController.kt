@@ -1,13 +1,14 @@
 package org.wit.song.console.controllers
 
 import mu.KotlinLogging
+import org.wit.song.console.models.SongJSONStore
 import org.wit.song.console.models.SongMemStore
 import org.wit.song.console.models.SongModel
 import org.wit.song.console.views.SongView
 
 class SongController {
 
-    val songs = SongMemStore()
+    val songs = SongJSONStore()
     val songView = SongView()
     val logger = KotlinLogging.logger {}
 
