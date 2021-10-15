@@ -1,12 +1,13 @@
 package org.wit.song.console.main
 
 import mu.KotlinLogging
+import org.wit.song.console.models.SongMemStore
 import org.wit.song.console.models.SongModel
 
 private val logger = KotlinLogging.logger {}
 
 var song = SongModel()
-val songs = ArrayList<SongModel>()
+val songs = SongMemStore()
 
 fun main(args: Array<String>) {
     logger.info { "Launching Music Console App" }
