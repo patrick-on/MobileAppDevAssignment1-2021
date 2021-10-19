@@ -39,4 +39,8 @@ class SongMemStore : SongStore {
     internal fun logAll() {
         songs.forEach { logger.info("${it}") }
     }
+
+    override fun delete(song: SongModel) {
+        songs.remove(song)
+    }
 }

@@ -5,4 +5,5 @@ interface SongStore {
     fun findOne(id: Long): SongModel?
     fun create(song: SongModel)
     fun update(song: SongModel)
+    fun delete(song: SongModel)
 }

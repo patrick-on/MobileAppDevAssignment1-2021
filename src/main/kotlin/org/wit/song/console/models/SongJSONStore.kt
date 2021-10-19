@@ -64,4 +64,9 @@ class SongJSONStore : SongStore {
         val jsonString = read(JSON_FILE)
         songs = Gson().fromJson(jsonString, listType)
     }
+
+    override fun delete(song: SongModel) {
+        songs.remove(song)
+        serialize()
+    }
 }

@@ -27,6 +27,7 @@ class SongController {
                 2 -> update()
                 3 -> list()
                 4 -> search()
+                5 -> delete()
                 -99 -> dummyData()
                 -1 -> println("Exiting App")
                 else -> println("Invalid Option")
@@ -85,5 +86,19 @@ class SongController {
         songs.create(SongModel(1, "21", "Polo G"))
         songs.create(SongModel(2, "Martin & Gina", "Polo G"))
         songs.create(SongModel(3, "2055", "Sleepy Hallows"))
+    }
+
+    fun delete() {
+        songView.listSongs(songs)
+        var searchId = songView.getId()
+        val aSong = search(searchId)
+
+        if(aSong != null) {
+            songs.delete(aSong)
+            println("Song Deleted...")
+            songView.listSongs(songs)
+        }
+        else
+            println("Song Not Deleted...")
     }
 }
